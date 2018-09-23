@@ -1,0 +1,79 @@
+<meta charset="utf-8" />
+<title>实现页面背景切换</title>
+<head>
+	<h3 align="center">请根据自己的喜好，设置颜色背景</h3>
+</head>
+<style>
+	img{
+		width: 20px;
+		height: 20px;
+	}
+</style>
+
+<body>
+	<div align="center">
+		<img id="grey" src="grey.jpg" onmouseover="bigger(grey)" onmouseout="smaller(grey)" onclick="bgGrey()" /><!--#CCCCCC-->&nbsp
+		<img id="purple" src="purple.jpg" onmouseover="bigger(purple)" onmouseout="smaller(purple)" onclick="bgPurple()" /><!--#9933FF-->&nbsp
+		<img id="red" src="red.jpg" onmouseover="bigger(red)" onmouseout="smaller(red)" onclick="bgRed()" /><!--#FF0000-->&nbsp
+		<img id="blue" src="blue.jpg" onmouseover="bigger(blue)" onmouseout="smaller(blue)" onclick="bgBlue()" /><!--#99CCFF-->&nbsp
+		<img id="orange" src="orange.jpg" onmouseover="bigger(orange)" onmouseout="smaller(orange)" onclick="bgOrange()" /><!--#FF6600-->&nbsp
+		<img id="green" src="green.jpg" onmouseover="bigger(green)" onmouseout="smaller(green)" onclick="bgGreen()" /><!--#66FF00-->&nbsp
+	<br />
+	</div>
+	<div  align="center" id="bg" >
+		当你读完这段文字后，你就会发现其实这段文字毫无意义，它只是用来测试背景颜色的。<br />
+		如果你要是硬要读完，那么我也没有办法。
+	</div>
+	<script type="text/javascript">
+	var img = document.getElementById('img');
+	var bg = document.getElementById('bg');
+	function bigger(img){
+		img.style.width = '30px';
+		img.style.height = '30px';
+	}
+	function smaller(img){
+		img.style.width = '20px';
+		img.style.height = '20px';
+	}
+	
+	if(localStorage) {
+		var storage = localStorage;
+		var colorArray = new Array('#CCCCCC','#9933FF','#FF0000','#99CCFF','#FF6600','#66FF00');
+		function bgGrey(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[0];
+		window.localStorage.setItem('bgColor',colorArray[0]);
+	}
+		function bgPurple(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[1];
+		window.localStorage.setItem('bgColor',colorArray[1]);
+	}
+		function bgRed(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[2];
+		window.localStorage.setItem('bgColor',colorArray[2]);
+	}
+		function bgBlue(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[3];
+		window.localStorage.setItem('bgColor',colorArray[3]);
+	}
+		function bgOrange(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[4];
+		window.localStorage.setItem('bgColor',colorArray[4]);
+	}
+		function bgGreen(){
+		var bg = document.getElementById("bg");
+		bg.style.background = colorArray[5];
+		window.localStorage.setItem('bgColor',colorArray[5]);
+	}
+		
+		window.onload = function colorLoad() {
+			document.getElementById("bg").style.background = window.localStorage.getItem('bgColor');
+		}
+	}
+	
+</script>
+</body>
