@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+		<title>任务四：文件与拖放</title>
+		<style type="text/css">
+		.area{
+			border:2px dotted purple;
+			width:64px;
+			height:64px;
+			float: right;
+			}
+		
+	</style>
+</head>
+<body>
+	<script>
+		var result = document.getElementById('result');
+		var file = document.getElementById('file');
+		if(!window.FileReader){
+			alert("你的浏览器不支持，请更换浏览器进行浏览！")
+		}
+		
+		function showPng(){
+			var file = document.getElementById('file').files[0];
+			if(!/image\/\w+/.test(file.type)){
+				alert("文件类型错误！");
+				return false;
+			}
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e){
+				var img_result = document.getElementById('result');
+				img_result.innerHTML = '<img src="'+this.result+'" id="dragger" draggable="true" ondragstart="drag(event)"/>'
+			}
+		}
+		function showTwo()
+	{
+	    var file = document.getElementById("file").files[0];
+	    var reader = new FileReader();
+	    reader.readAsBinaryString(file);
+	    reader.onload = function(f)
+	    {
+	        var result=document.getElementById("result");
+	        result.innerHTML=this.result;
+	    }
+	}
+	
+	function showTxt()
+	{
+	    var file = document.getElementById("file").files[0];
+	    var reader = new FileReader();
+	    reader.readAsText(file);
+	    reader.onload = function(f)
+	    {
+	        var result=document.getElementById("result");
+	        result.innerHTML=this.result;
+	    }
+	}
+	function drag(ev){
+		ev.dataTransfer.setData("Text",ev.target.id);
+	}
+	
+	function allowDrop(ev) 
+	{ 
+    	ev.preventDefault(); 
+	} 
+
+	function drop(ev){
+		ev.preventDefault(); 
+    	var data=ev.dataTransfer.getData("Text"); 
+    	ev.target.appendChild(document.getElementById(data));
+	}
+	</script>
+	<div class="area" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<p>请选择图片文件，
+	并将所上传的图片拖动到右上角设置成你的头像。
+	<br />
+	<input type="file" id="file">
+	<input type="button" value="读取图像" onclick="showPng()">
+	<input type="button" value="读取二进制信息" onclick="showTwo()">
+	<input type="button" value="读取文本信息" onclick="showTxt()">
+	
+	<div name="result" id="result">
+		
+	</div>
+	
+	
+</body>
+</html>
